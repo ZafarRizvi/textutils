@@ -6,7 +6,27 @@ function TextForm(props) {
 		setText(text.toUpperCase());
 	};
 
-	const [text, setText] = useState("enter text here");
+	const HandleLOC = () => {
+		console.log("Lowercase was clicked");
+		setText(text.toLowerCase());
+	};
+
+	const HandleClear = () => {
+		console.log("Clear was clicked");
+		setText("");
+	};
+
+	const HandleCAC = () => {
+		console.log("Camelcase was clicked");
+		setText(text.toLowerCase().replace(/(?:^|\s)\S/g, (a) => a.toUpperCase()));
+	};
+
+	const HandleNSC = () => {
+		console.log("Normal Sentence was clicked");
+		setText(text.toLowerCase().replace(/(?:^|\.)\S/g, (a) => a.toUpperCase()));
+	};
+
+	const [text, setText] = useState("");
 
 	return (
 		<>
@@ -18,25 +38,38 @@ function TextForm(props) {
 						id="myBox"
 						value={text}
 						rows="5"
+						placeholder="Enter text here"
 						onChange={(event) => {
 							console.log("On change");
 							setText(event.target.value);
 						}}
 					></textarea>
 				</div>
-				<button className="btn btn-primary" onClick={HandleUPC}>
+				<button className="btn btn-primary m-2" onClick={HandleUPC}>
 					Convert to Uppercase
+				</button>
+				<button className="btn btn-primary m-2" onClick={HandleLOC}>
+					Convert to Lowercase
+				</button>
+				<button className="btn btn-primary m-2" onClick={HandleClear}>
+					Clear Text
+				</button>
+				<button className="btn btn-primary m-2" onClick={HandleCAC}>
+					Convert to Camelcase
+				</button>
+				<button className="btn btn-primary m-2" onClick={HandleNSC}>
+					Convert to Normal Sentence
 				</button>
 			</div>
 			<div className="container my-3">
-				<h2>Your text summary</h2>
+				<h5>Your text summary</h5>
 				<p>
 					{text.split(" ").length} words and {text.length} characters
 				</p>
 				<p>
 					You can read this in <b>{0.008 * text.split(" ").length}</b> Minutes.
 				</p>
-				<h2>Preview</h2>
+				<h5>Preview</h5>
 				<p>{text}</p>
 			</div>
 		</>
